@@ -1,4 +1,5 @@
 const UserController = require('./controllers/UserController')
+const DrinkController = require('./controllers/DrinkController')
 
 module.exports = (app) => {
     /* RESFUL Api for users management */
@@ -17,4 +18,11 @@ module.exports = (app) => {
 
     // get all user
     app.get('/users', UserController.index)
+}
+module.exports = (app) => {
+    app.get('/drinks', DrinkController.index)
+    app.get('/drink/:id', DrinkController.show)
+    app.post('/drink', DrinkController.create)
+    app.put('/drink/:id', DrinkController.update)
+    app.delete('/drink/:id', DrinkController.delete)
 }
