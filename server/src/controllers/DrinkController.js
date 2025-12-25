@@ -1,8 +1,39 @@
-// controllers/UserController.js
+// controllers/DrinkController.js
+let drinks = []; // เก็บข้อมูลเครื่องดื่มชั่วคราว
+
 module.exports = {
-    index: (req, res) => res.send('เรียกข้อมูลผู้ใช้งานทั้งหมด'),
-    show: (req, res) => res.send('ดูข้อมูลผู้ใช้งาน ' + req.params.userId),
-    create: (req, res) => res.send('สร้างผู้ใช้งาน: ' + JSON.stringify(req.body)),
-    put: (req, res) => res.send('แก้ไขผู้ใช้งาน: ' + req.params.userId),
-    remove: (req, res) => res.send('ลบผู้ใช้งาน: ' + req.params.userId)
+  // GET /drinks
+  index: (req, res) => {
+    res.json(drinks);
+  },
+
+  // GET /drink/:id
+  show: (req, res) => {
+    const drink = drinks.find(d => d.id === parseInt(req.params.id));
+    if (!drink) return res.status(404).send('ไม่พบเครื่องดื่ม');
+    res.json(drink);
+  },
+
+  // POST /drink
+  create: (req, res) => {
+    const newDrink = { id: drinks.length + 1, ...req.body };
+    drinks.push(newDrink);
+    res.status(201).json(newDrink);
+  },
+
+  // PUT /drink/:id
+  update: (req, res) => {
+    const drink = drinks.find(d => d.id === parseInt(req.params.id));
+    if (!drink) return res.status(404).send('ไม่พบเครื่องดื่ม');
+    Object.assign(drink, req.body);
+    res.json(drink);
+  },
+
+  // DELETE /drink/:id
+  delete: (req, res) => {
+    const index = drinks.findIndex(d => d.id === parseInt(req.params.id));
+    if (index === -1) return res.status(404).send('ไม่พบเครื่องดื่ม');
+    const deleted = drinks.splice(index, 1);
+    res.json(deleted[0]);
+  }
 };
