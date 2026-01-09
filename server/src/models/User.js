@@ -1,4 +1,3 @@
-const {User} = require('../models')
 const bcrypt = require('bcrypt')
 
 async function hashPassword (user, options) {
