@@ -7,9 +7,9 @@
       <p>ชื่อ-นามสกุล: {{ user.name }} - {{ user.lastname }}</p>
       <p>email: {{ user.email }}</p>
       <p>password: {{ user.password }}</p>
+      <p><button v-on:click="navigateTo('/user/'+user.id)">ดูข้อมูลผู้ใช้</button></p>
       <hr>
     </div>
-    <p><button @click="navigateTo('/user/create')">สร้างผู้ใช้งาน</button></p>
   </div>
 </template>
 
